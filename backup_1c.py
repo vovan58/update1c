@@ -110,17 +110,19 @@ def lock_ib_server(server_name, ib_name, lock_code):
     logger = logging.getLogger('gvk_upd')
     logger.info('begin lock ib =' + ib_name + ' server=' + server_name)
 
-def clearcash1c(dir_cash1)
+def clearcash1c(dir_cash1):
     global logger
     dir_cash = dir_cash1
     pattern = '[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}'
     for ep in os.listdir(dir_cash):
         if ((re.match(pattern, ep) != None) and os.path.isdir(os.path.join(dir_cash, ep))):
             logger.info('cash directory :' + os.path.join(dir_cash, ep))
-            try
+            try:
                 shutil.rmtree(os.path.join(dir_cash,ep))
-            except Exception as err_x
-                logger.error(err_x + ' : ' + os.path.join(dir_cash,ep))
+                logger.info(os.path.join(dir_cash,ep))
+            except Exception as err_x :
+                logger.error(os.path.join(dir_cash,ep))
+                logger.error(err_x)
 
 def cashclear():
     global logger
