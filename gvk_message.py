@@ -46,6 +46,10 @@ class gvk_message:
         self.silence = namespace.silence
         self.verbose = namespace.verbose
         self.clean   = namespace.log_clean
+        if self.level == None:
+            self.level = logging.INFO
+            self.logger.warning('Error log level "' + level + '". Set log level "INFO"')
+        self.logger.setLevel(self.level)
         path = namespace.log_path
         if path != None:
             if os.path.exists(path):
@@ -72,10 +76,6 @@ class gvk_message:
 
         self.logger.addHandler(fh)
         self.level = self.dict_level.get(level)
-        if self.level == None:
-            self.level = logging.INFO
-            self.logger.warning('Error log level "' + level + '". Set log level "INFO"')
-        self.logger = logging.getLogger(self.log_name)
 
     def first_message(self,prog_name):
         self.prog_name  = prog_name
